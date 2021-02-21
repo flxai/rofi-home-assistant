@@ -3,4 +3,4 @@
 json=$(hass-cli -o json state list 2>/dev/null)
 idx=$(jq -r '.[] | [.entity_id, .state] | join(" ")' <<< "$json" | column -t | rofi -dmenu -i -markup-rows -format d)
 item=$(jq -r '.[].entity_id' <<< "$json" | sed "${idx}q;d")
-hass-cli state toggle "$item"
+hass-cli state toggle "$item" &>/dev/null
